@@ -10,8 +10,20 @@ class App extends Component {
         { description: 'Walk the cat', isCompleted: true },
         { description: 'Throw the dishes away', isCompleted: false },
         { description: 'Buy new dishes', isCompleted: false }
-      ]
+      ],
+      newToDoDescription: ''
     };
+  }
+
+  handleChange(e) {
+    this.setState({ newToDoDescription: e.target.value })
+  }
+  
+  handleSubmit(e) {
+    e.preventDefault();
+    if (!this.state.newToDoDescription) { return }
+    const newTodo = { description: this.state.newToDoDescription, isCompleted: false }
+    this.setState({ todos: [...this.state.todos, newTodo], newToDoDescription: '' })
   }
 
   toggleComplete(index){
@@ -30,6 +42,10 @@ class App extends Component {
             <ToDo key={ index } description={ todo.description } isCompleted={ todo.isCompleted } toggleComplete={ () => this.toggleComplete(index) }/>
           )}
         </ul>
+        <form onSubmit={ (e) => this.handleSubmit(e) }>
+          <input type="text" value={ this.state.newToDoDescription } onChange={ (e) => this.handleChange(e) } />
+          <input type="submit" />
+        </form>
       </div>
     );
   }
