@@ -28,7 +28,7 @@ class App extends Component {
 
   deleteTodo(index){
     const todos = this.state.todos.slice();
-    todos.splice(index);
+    todos.splice(index, 1);
     this.setState({ todos: todos })
   }
 
