@@ -9,16 +9,25 @@ class App extends Component {
       todos: [
         { description: 'Walk the cat', isCompleted: true },
         { description: 'Throw the dishes away', isCompleted: false },
-        { description: 'Buy new dishes', isComplete: false }
+        { description: 'Buy new dishes', isCompleted: false }
       ]
     };
   }
+
+  toggleComplete(index){
+    const todos = this.state.todos.slice();
+    const todo = todos[index];
+    todo.isCompleted = todo.isCompleted ? false : true;
+    this.setState({ todos: todos })
+    console.log(this.state.todos[index])
+  }
+
   render() {
     return (
       <div className="App">
         <ul>
           { this.state.todos.map( (todo, index) =>
-            <ToDo key={ index } description={ todo.description } isComplete={ todo.isComplete }/>
+            <ToDo key={ index } description={ todo.description } isCompleted={ todo.isCompleted } toggleComplete={ () => this.toggleComplete(index) }/>
           )}
         </ul>
       </div>
